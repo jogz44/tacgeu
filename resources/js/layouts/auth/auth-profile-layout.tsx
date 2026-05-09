@@ -1,0 +1,45 @@
+import AppLogoIcon from '@/components/app-logo-icon';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from '@inertiajs/react';
+import { type PropsWithChildren } from 'react';
+
+export default function AuthProfileLayout({
+    children,
+    title,
+    description,
+}: PropsWithChildren<{
+    name?: string;
+    title?: string;
+    description?: string;
+}>) {
+    return (
+        <div
+            className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10"
+            style={{
+                backgroundImage: "linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('/assets/images/main.png')",
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                zIndex: 0,
+            }}
+        >
+            <div className="flex w-full max-w-5xl flex-col gap-6">
+                <div className="flex flex-col gap-6">
+                    <Card className="rounded-xl">
+                        <CardHeader className="px-10 pb-0 text-center">
+                            <Link href={route('home')} className="flex items-center gap-2 self-center font-medium">
+                                <div className="flex flex-col items-center justify-center text-center">
+                                    <AppLogoIcon className="mb-2 size-24 fill-current text-black dark:text-white" />
+                                    <p className="max-w-md text-base font-semibold">Tagum City Government Employees' Union (TACGEU)</p>
+                                </div>
+                            </Link>
+                            <CardTitle className="text-xl">{title}</CardTitle>
+                            <CardDescription>{description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="px-10 py-8">{children}</CardContent>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    );
+}

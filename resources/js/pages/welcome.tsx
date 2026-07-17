@@ -51,7 +51,7 @@ export default function Welcome({ announcements }: AnnouncementPageProps) {
             <header
                 className="relative min-h-screen w-full bg-cover bg-center text-white"
                 style={{
-                    backgroundImage: "linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('${window.APP_BASE_URL}assets/images/main.png')",
+                    backgroundImage: `linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('${window.APP_BASE_URL}assets/images/main.png')`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',

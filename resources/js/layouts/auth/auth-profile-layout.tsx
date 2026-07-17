@@ -16,7 +16,7 @@ export default function AuthProfileLayout({
         <div
             className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10"
             style={{
-                backgroundImage: "linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('${window.APP_BASE_URL}assets/images/main.png')",
+                backgroundImage: `linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('${window.APP_BASE_URL}assets/images/main.png')`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',

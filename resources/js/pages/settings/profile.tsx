@@ -153,7 +153,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
     });
 
     useEffect(() => {
-        fetch('/assets/json/cluster.json')
+         fetch(`${window.APP_BASE_URL}assets/json/cluster.json`)
             .then((res) => res.json())
             .then((json: ClusterData) => {
                 setCluster(json);

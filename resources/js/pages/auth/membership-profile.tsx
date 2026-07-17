@@ -800,7 +800,7 @@ export default function MembershipProfile() {
                                                 <DialogTitle>Sample Employee ID</DialogTitle>
                                             </DialogHeader>
 
-                                            <img src="/assets/images/sample.png" alt="Sample Employee ID" className="mt-4 w-full rounded-lg" />
+                                            <img src={`${window.APP_BASE_URL}assets/images/sample.png`} alt="Sample Employee ID" className="mt-4 w-full rounded-lg" />
                                         </DialogContent>
                                     </Dialog>
                                 </li>

@@ -51,7 +51,7 @@ export default function Welcome({ announcements }: AnnouncementPageProps) {
             <header
                 className="relative min-h-screen w-full bg-cover bg-center text-white"
                 style={{
-                    backgroundImage: "linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('/assets/images/main.png')",
+                    backgroundImage: "linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('${window.APP_BASE_URL}assets/images/main.png')",
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
@@ -186,7 +186,7 @@ export default function Welcome({ announcements }: AnnouncementPageProps) {
                         {/* Image */}
                         <div className="h-full w-full">
                             <img
-                                src="/assets/images/logo.png" // Replace with your actual image
+                                src={`${window.APP_BASE_URL}assets/images/logo.png`} // Replace with your actual image
                                 alt="Union members in Tagum City"
                                 className="h-full w-full rounded-xl object-cover"
                             />

@@ -10,7 +10,7 @@ interface ExportPDFProps {
     colHeaders: string[];
     preparedBy: string;
     role: string;
-    grandTotal?: string; // Optional total for financial reports 
+    grandTotal?: string; // Optional total for financial reports
 }
 
 export default function ExportPDF({
@@ -44,7 +44,7 @@ export default function ExportPDF({
 
         // === Logo ===
         const img = new Image();
-        img.src = "/assets/images/logo.png";
+        img.src = `${window.APP_BASE_URL}assets/images/logo.png`;
         await new Promise((resolve, reject) => {
             img.onload = () => resolve(true);
             img.onerror = () => reject();

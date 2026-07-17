@@ -45,7 +45,7 @@ export default function ExportElectionReportPDF({
 
     // === Logo ===
     const img = new Image();
-    img.src = "/assets/images/logo.png";
+    img.src = `${window.APP_BASE_URL}assets/images/logo.png`;
     await new Promise((resolve, reject) => {
       img.onload = () => resolve(true);
       img.onerror = () => resolve(false);

@@ -431,7 +431,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     <input {...getImageInputProps()} id="image" disabled={isReadOnly} /> {/* Hover overlay if preview exists */}
 
                                     {preview && (
-                                        <div className="absolute inset-0 z-10 hidden items-center justify-center 
+                                        <div className="absolute inset-0 z-10 hidden items-center justify-center
                                         rounded-full bg-black/50 text-white group-hover:flex">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 className="h-6 w-6 text-white"
@@ -442,7 +442,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                             </svg>
                                         </div>)} {/* Fallback if no preview */}
                                     {!preview && (
-                                        <div className="z-0 flex flex-col items-center px-2 text-center text-xs 
+                                        <div className="z-0 flex flex-col items-center px-2 text-center text-xs
                                         text-gray-500 dark:text-gray-300">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 className="mb-1 h-5 w-5 text-gray-400"
@@ -946,7 +946,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                                                     <div className="mt-4">
                                                         <img
-                                                            src="/assets/images/sample.png"
+                                                            src={`${window.APP_BASE_URL}assets/images/sample.png`}
                                                             alt="Sample Employee ID"
                                                             className="w-full rounded-lg border"
                                                         />
@@ -1018,7 +1018,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                                                             <div className="mt-4">
                                                                 <img
-                                                                    src="/assets/images/sample.png"
+                                                                    src={`${window.APP_BASE_URL}assets/images/sample.png`}
                                                                     alt="Sample Employee ID"
                                                                     className="w-full rounded-lg border"
                                                                 />

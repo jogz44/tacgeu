@@ -112,7 +112,7 @@ export default function PrintMembershipProfile({ profile, president, committee }
                             className="print-header"
                             style={{ textAlign: 'center', borderBottom: '2px solid #000', paddingBottom: '10px', marginBottom: '30px' }}
                         >
-                            <img src="/assets/icon/app-logo.svg" alt="TACGEU Logo" style={{ width: '80px', height: 'auto', margin: '0 auto' }} />
+                            <img src={`${window.APP_BASE_URL}assets/icon/app-logo.svg`} alt="TACGEU Logo" style={{ width: '80px', height: 'auto', margin: '0 auto' }} />
                             <h1 style={{ fontSize: '1.2rem', margin: '0' }}>Tagum City Government Employees Union (TACGEU)</h1>
                             <p style={{ fontSize: '0.7rem', margin: '4px 0' }}>
                                 Tagum City Hall, J.V. Ayala Avenue, Brgy. Apokon, Tagum City, Davao del Norte
@@ -230,7 +230,7 @@ export default function PrintMembershipProfile({ profile, president, committee }
                                 className="print-header"
                                 style={{ textAlign: 'center', borderBottom: '2px solid #000', paddingBottom: '10px', marginBottom: '30px' }}
                             >
-                                <img src="/assets/icon/app-logo.svg" alt="TACGEU Logo" style={{ width: '80px', height: 'auto', margin: '0 auto' }} />
+                                <img src={`${window.APP_BASE_URL}assets/icon/app-logo.svg`} alt="TACGEU Logo" style={{ width: '80px', height: 'auto', margin: '0 auto' }} />
                                 <h1 style={{ fontSize: '1.2rem', margin: '0' }}>Tagum City Government Employees Union (TACGEU)</h1>
                                 <p style={{ fontSize: '0.7rem', margin: '4px 0' }}>
                                     Tagum City Hall, J.V. Ayala Avenue, Brgy. Apokon, Tagum City, Davao del Norte

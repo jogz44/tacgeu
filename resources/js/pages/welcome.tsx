@@ -288,7 +288,7 @@ export default function Welcome({ announcements }: AnnouncementPageProps) {
                         <h2 className="text-4xl font-extrabold tracking-tight text-teal-700">Ready to Make a Difference?</h2>
                         <p className="mt-6 text-lg leading-relaxed text-gray-700">Become a member and help us build a stronger, fairer workplace.</p>
                         <a
-                            href="/membership"
+                             href={`${window.APP_BASE_URL}membership`}
                             className="mt-10 inline-block rounded-lg bg-teal-600 px-8 py-3 text-lg font-semibold text-white shadow-md transition duration-300 hover:bg-teal-700 hover:shadow-lg"
                         >
                             Become a Member

@@ -17,7 +17,7 @@ import { FaRedo } from 'react-icons/fa';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Applicants',
-        href: '/applicants',
+        href: '/tacgeu/applicants',
     },
 ];
 
@@ -119,7 +119,7 @@ export default function Members() {
 
     const fetchMember = (search = '', sex = '', civil = '', office = '', status = filterStatus) => {
         router.get(
-            '/applicants',
+            '/tacgeu/applicants',
             {
                 search,
                 sex,
@@ -139,7 +139,7 @@ export default function Members() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/applicants',
+            '/tacgeu/applicants',
             {
                 search: searchTerm,
                 sex: selectedSex,

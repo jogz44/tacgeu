@@ -33,7 +33,7 @@ import {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Roles',
-        href: '/roles',
+        href: '/tacgeu/roles',
     },
 ];
 
@@ -78,7 +78,7 @@ export default function Roles() {
 
     const fetchUsers = (search = '', role = '', status = '') => {
         router.get(
-            '/roles',
+            '/tacgeu/roles',
             {
                 search,
                 role,
@@ -96,7 +96,7 @@ export default function Roles() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/roles', // or use a static string like `/roles`
+            '/tacgeu/roles', // or use a static string like `/tacgeu/roles`
             {
                 search: searchTerm,
                 role: selectedRole,

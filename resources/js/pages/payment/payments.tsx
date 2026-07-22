@@ -31,7 +31,7 @@ import * as XLSX from "xlsx";
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Receipts',
-        href: '/payments',
+        href: '/tacgeu/payments',
     },
 ];
 
@@ -119,7 +119,7 @@ export default function expenses() {
         const effectiveDate = transaction_at || format(new Date(), "yyyy-MM-dd");
 
         router.get(
-            '/payments',
+            '/tacgeu/payments',
             {
                 search,
                 collection_id,
@@ -138,7 +138,7 @@ export default function expenses() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/payments',
+            '/tacgeu/payments',
             {
                 search: searchTerm,
                 transaction_at: selectedDate,

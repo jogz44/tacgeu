@@ -27,7 +27,7 @@ import { toast, Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Membership Fee',
-        href: '/membership_fee',
+        href: '/tacgeu/membership_fee',
     },
 ];
 
@@ -91,7 +91,7 @@ export default function expenses() {
 
     const fetchCollection = (search = '') => {
         router.get(
-            '/collections',
+            '/tacgeu/collections',
             {
                 search,
             },
@@ -107,7 +107,7 @@ export default function expenses() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/collections',
+            '/tacgeu/collections',
             {
                 search: searchTerm,
                 sortBy: field,

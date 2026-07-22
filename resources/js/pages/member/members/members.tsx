@@ -18,7 +18,7 @@ import { FaRedo } from 'react-icons/fa';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Members',
-        href: '/members',
+        href: '/tacgeu/members',
     },
 ];
 
@@ -118,7 +118,7 @@ export default function Members() {
     const itemsPerPage = 10; // Customize the number of items per page
     const fetchMember = (search = '', sex = '', office = '', education = '', salary = '', memberStatus: string = membership_status) => {
         router.get(
-            '/members',
+            '/tacgeu/members',
             {
                 search,
                 sex,
@@ -139,7 +139,7 @@ export default function Members() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/members',
+            '/tacgeu/members',
             {
                 search: searchTerm,
                 sex: selectedSex,

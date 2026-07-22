@@ -33,7 +33,7 @@ import * as XLSX from "xlsx";
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Contribution',
-        href: 'monthly/contribution',
+        href: '/tacgeu/monthly/contribution',
     },
 ];
 
@@ -177,7 +177,7 @@ export default function contribution() {
 
     const fetchContribution = (search = '', month = '', year = '') => {
         router.get(
-            '/monthly/contribution',
+            '/tacgeu/monthly/contribution',
             {
                 search,
                 month,
@@ -195,7 +195,7 @@ export default function contribution() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/monthly/contribution',
+            '/tacgeu/monthly/contribution',
             {
                 search: searchTerm,
                 year: selectedYear,

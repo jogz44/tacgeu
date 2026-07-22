@@ -18,7 +18,7 @@ import { toast, Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Settings',
-        href: '/app-settings',
+        href: '/tacgeu/app-settings',
     },
 ];
 

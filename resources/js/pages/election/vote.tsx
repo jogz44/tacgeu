@@ -21,7 +21,7 @@ import { toast, Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Vote',
-        href: '/vote',
+        href: '/tacgeu/vote',
     },
 ];
 

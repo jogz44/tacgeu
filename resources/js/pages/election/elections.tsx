@@ -38,7 +38,7 @@ import {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Elections',
-        href: '/elections',
+        href: '/tacgeu/elections',
     },
 ];
 
@@ -89,7 +89,7 @@ export default function elections() {
 
     const fetchElection = (search = '', status = '') => {
         router.get(
-            '/elections',
+            '/tacgeu/elections',
             {
                 search,
                 status,
@@ -106,7 +106,7 @@ export default function elections() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/elections',
+            '/tacgeu/elections',
             {
                 search: searchTerm,
                 sortBy: field,

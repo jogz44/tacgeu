@@ -27,7 +27,7 @@ import { toast, Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Candidates',
-        href: '/candidates',
+        href: '/tacgeu/candidates',
     },
 ];
 
@@ -292,7 +292,7 @@ export default function candidates() {
                                         const today = new Date();
 
                                         const stripTime = (date: Date | string) => {
-                                            const d = new Date(date); 
+                                            const d = new Date(date);
                                             return new Date(d.getFullYear(), d.getMonth(), d.getDate());
                                         };
 
@@ -335,10 +335,10 @@ export default function candidates() {
                                                                     width: `${filingWidth}%`,
                                                                     backgroundColor:
                                                                         filingWidth === 100
-                                                                            ? "#ef4444" 
+                                                                            ? "#ef4444"
                                                                             : filingWidth === 0
                                                                                 ? "#9ca3af"
-                                                                                : "#22c55e", 
+                                                                                : "#22c55e",
                                                                 }}
                                                             />
                                                         </div>

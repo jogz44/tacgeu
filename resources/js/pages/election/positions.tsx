@@ -35,7 +35,7 @@ import {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Positions',
-        href: '/positions',
+        href: '/tacgeu/positions',
     },
 ];
 // Define the Expenses interface
@@ -93,7 +93,7 @@ export default function positions() {
 
     const fetchPosition = (election_id = '') => {
         router.get(
-            '/positions',
+            '/tacgeu/positions',
             {
                 election_id,
             },
@@ -111,7 +111,7 @@ export default function positions() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/positions',
+            '/tacgeu/positions',
             {
                 election_id: selectedElection,
                 sortBy: field,

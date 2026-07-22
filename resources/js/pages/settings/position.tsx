@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Form Settings',
-        href: '/app-settings/position',
+        href: '/tacgeu/app-settings/position',
     },
 ];
 
@@ -55,7 +55,7 @@ export default function EmployeePosition() {
 
     const fetchPosition = (search = '', department = '') => {
         router.get(
-            '/app-settings/position',
+            '/tacgeu/app-settings/position',
             {
                 search,
                 department,
@@ -72,7 +72,7 @@ export default function EmployeePosition() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/app-settings/position', // or use a static string like `/roles`
+            '/tacgeu/app-settings/position', // or use a static string like `/roles`
             {
                 search: searchTerm,
                 department: selectedDepartment,
@@ -99,7 +99,7 @@ export default function EmployeePosition() {
 
         if (editId) {
             router.put(
-                `/app-settings/position/${editId}`,
+                `/tacgeu/app-settings/position/${editId}`,
                 { title: formName },
                 {
                     onSuccess: () => {
@@ -122,7 +122,7 @@ export default function EmployeePosition() {
             );
         } else {
             router.post(
-                '/app-settings/position',
+                '/tacgeu/app-settings/position',
                 { title: formName },
                 {
                     onSuccess: () => {
@@ -149,7 +149,7 @@ export default function EmployeePosition() {
     const handleDelete = () => {
         setIsDeleting(true);
         if (deleteId) {
-            router.delete(`/app-settings/position/${deleteId}`, {
+            router.delete(`/tacgeu/app-settings/position/${deleteId}`, {
                 onSuccess: () => {
                     toast.success(`App Setting`, {
                         description: `Position has been permanently removed.`,

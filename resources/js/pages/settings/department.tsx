@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Form Settings',
-        href: '/app-settings/department',
+        href: '/tacgeu/app-settings/department',
     },
 ];
 
@@ -55,7 +55,7 @@ export default function Department() {
 
     const fetchDepartment = (search = '', department = '') => {
         router.get(
-            '/app-settings/department',
+            '/tacgeu/app-settings/department',
             {
                 search,
                 department,
@@ -72,7 +72,7 @@ export default function Department() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/app-settings/department', // or use a static string like `/roles`
+            '/tacgeu/app-settings/department', // or use a static string like `/roles`
             {
                 search: searchTerm,
                 department: selectedDepartment,
@@ -99,7 +99,7 @@ export default function Department() {
 
         if (editId) {
             router.put(
-                `/app-settings/department/${editId}`,
+                `/tacgeu/app-settings/department/${editId}`,
                 { name: formName },
                 {
                     onSuccess: () => {
@@ -114,7 +114,7 @@ export default function Department() {
             );
         } else {
             router.post(
-                '/app-settings/department',
+                '/tacgeu/app-settings/department',
                 { name: formName },
                 {
                     onSuccess: () => {
@@ -133,7 +133,7 @@ export default function Department() {
     const handleDelete = () => {
         setIsDeleting(true);
         if (deleteId) {
-            router.delete(`/app-settings/department/${deleteId}`, {
+            router.delete(`/tacgeu/app-settings/department/${deleteId}`, {
                 onSuccess: () => {
                     toast.success(`App Setting`, {
                         description: `Department has been permanently removed.`,

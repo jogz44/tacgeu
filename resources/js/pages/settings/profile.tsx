@@ -21,7 +21,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Profile Settings',
-        href: '/settings/profile',
+        href: '/tacgeu/settings/profile',
     },
 ];
 

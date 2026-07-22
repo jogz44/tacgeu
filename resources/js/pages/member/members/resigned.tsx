@@ -24,7 +24,7 @@ import ExportPDF from '@/pages/report/pdf/ExportPDF';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Terminated Memberships',
-        href: '/resigned',
+        href: '/tacgeu/resigned',
     },
 ];
 
@@ -120,13 +120,13 @@ export default function Resigned() {
 
     useEffect(() => {
         const fetchPosition = async () => {
-            const response = await axios.get('/position');
+            const response = await axios.get('/tacgeu/position');
             const data = Array.isArray(response.data) ? response.data : [];
             setPosition(data);
         };
 
         const fetchDepartment = async () => {
-            const response = await axios.get('/department');
+            const response = await axios.get('/tacgeu/department');
             const data = Array.isArray(response.data) ? response.data : [];
             setDepartment(data);
         };
@@ -167,7 +167,7 @@ export default function Resigned() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/resigned',
+            '/tacgeu/resigned',
             {
                 search: search,
                 position: selectedPosition,

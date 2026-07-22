@@ -29,7 +29,7 @@ import { toast, Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Collections',
-        href: '/collections',
+        href: '/tacgeu/collections',
     },
 ];
 
@@ -94,7 +94,7 @@ export default function expenses() {
 
     const fetchCollection = (search = '') => {
         router.get(
-            '/collections',
+            '/tacgeu/collections',
             {
                 search,
             },
@@ -110,7 +110,7 @@ export default function expenses() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/collections',
+            '/tacgeu/collections',
             {
                 search: searchTerm,
                 sortBy: field,

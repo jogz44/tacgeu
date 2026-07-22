@@ -10,7 +10,7 @@ import { Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Electoral Polls',
-        href: '/polls',
+        href: '/tacgeu/polls',
     },
 ];
 

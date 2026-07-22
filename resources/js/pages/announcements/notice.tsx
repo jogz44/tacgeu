@@ -6,7 +6,7 @@ import { AlertCircle, CheckCircle } from 'lucide-react';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Notice',
-        href: '/notice',
+        href: '/tacgeu/notice',
     },
 ];
 

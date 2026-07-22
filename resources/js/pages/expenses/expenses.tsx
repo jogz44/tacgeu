@@ -22,7 +22,7 @@ import { toast, Toaster } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Disbursements',
-        href: '/expenses',
+        href: '/tacgeu/expenses',
     },
 ];
 
@@ -129,7 +129,7 @@ export default function expenses() {
 
     const fetchExpenses = (search = '', status = '') => {
         router.get(
-            '/expenses',
+            '/tacgeu/expenses',
             {
                 search,
                 status,
@@ -146,7 +146,7 @@ export default function expenses() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/expenses',
+            '/tacgeu/expenses',
             {
                 search: searchTerm,
                 status: selectedStatus,

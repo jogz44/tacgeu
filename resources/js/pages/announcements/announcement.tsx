@@ -34,7 +34,7 @@ import ExportAnnouncementPDF from '../report/pdf/ExportAnnouncementPDF';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Announcement',
-        href: '/announcement',
+        href: '/tacgeu/announcement',
     },
 ];
 
@@ -151,7 +151,7 @@ export default function expenses() {
 
     const fetchAnnouncement = (search = '') => {
         router.get(
-            '/announcement',
+            '/tacgeu/announcement',
             {
                 search,
                 type: filteredType as string,
@@ -168,7 +168,7 @@ export default function expenses() {
         setSortBy(field);
         setSortDirection(newDirection);
         router.get(
-            '/announcement',
+            '/tacgeu/announcement',
             {
                 search: searchTerm,
                 type: filteredType as string,

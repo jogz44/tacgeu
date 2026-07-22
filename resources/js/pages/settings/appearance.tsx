@@ -10,7 +10,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Appearance Settings',
-        href: '/settings/appearance',
+        href: '/tacgeu/settings/appearance',
     },
 ];
 

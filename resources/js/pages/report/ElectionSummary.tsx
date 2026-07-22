@@ -15,7 +15,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import React from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Electoral Report', href: '/election-summary' },
+  { title: 'Electoral Report', href: '/tacgeu/election-summary' },
 ];
 
 export default function ElectionSummary() {

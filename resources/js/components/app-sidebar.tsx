@@ -67,7 +67,7 @@ export function AppSidebar() {
     if (nonVisitorMember) {
         mainNavItems.push({
             title: 'Dashboard',
-            href: '/dashboard',
+            href: '/tacgeu/dashboard',
             icon: LayoutGrid,
         });
     }
@@ -76,7 +76,7 @@ export function AppSidebar() {
     if (user?.role === 'Visitor') {
         mainNavItems.push({
             title: 'Notice',
-            href: '/notice',
+            href: '/tacgeu/notice',
             icon: Newspaper,
         });
         if (user?.affiliation === 'Officer' && user?.status === 'Approved') {
@@ -87,15 +87,15 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'Candidates',
-                        href: '/candidates/member',
+                        href: '/tacgeu/candidates/member',
                     },
                     {
                         title: 'Cast Vote',
-                        href: '/vote',
+                        href: '/tacgeu/vote',
                     },
                     {
                         title: 'Election Poll',
-                        href: '/polls',
+                        href: '/tacgeu/polls',
                     },
                 ],
             });
@@ -103,7 +103,7 @@ export function AppSidebar() {
         if (user?.affiliation === 'Member') {
             footerNavItems.push({
                 title: 'Membership Application',
-                href: user ? `/membershipform/print/${user.id}` : '#',
+                href: user ? `/tacgeu/membershipform/print/${user.id}` : '#',
                 icon: BookOpen,
             });
         }

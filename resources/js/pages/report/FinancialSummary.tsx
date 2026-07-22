@@ -29,7 +29,7 @@ import ExportFinancialSummaryPDF from './pdf/ExportFinancialSummaryPDF';
 import { useEffect } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Financial Summary', href: '/financial-summary' },
+    { title: 'Financial Summary', href: '/tacgeu/financial-summary' },
 ];
 
 export default function FinancialSummary() {

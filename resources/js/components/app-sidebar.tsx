@@ -118,22 +118,22 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'Announcements',
-                        href: '/announcement?type=Announcements',
+                        href: '/tacgeu/announcement?type=Announcements',
                         badge: updateCounts.Announcements ?? '',
                     },
                     {
                         title: 'Meetings Schedules',
-                        href: '/announcement?type=Meetings',
+                        href: '/tacgeu/announcement?type=Meetings',
                         badge: updateCounts.Meetings ?? '',
                     },
                     {
                         title: 'Event Schedules',
-                        href: '/announcement?type=Events',
+                        href: '/tacgeu/announcement?type=Events',
                         badge: updateCounts.Events ?? '',
                     },
                     {
                         title: 'Offered Programs',
-                        href: '/announcement?type=Programs',
+                        href: '/tacgeu/announcement?type=Programs',
                         badge: updateCounts.Programs ?? '',
                     },
                 ],
@@ -146,7 +146,7 @@ export function AppSidebar() {
         mainNavItems.push(
             {
                 title: 'Monthly Contribution',
-                href: '/member/contributions',
+                href: '/tacgeu/member/contributions',
                 icon: NotebookPen,
             },
             ...(user?.status === 'Resigned'
@@ -159,15 +159,15 @@ export function AppSidebar() {
                           children: [
                               {
                                   title: 'Candidates',
-                                  href: '/candidates/member',
+                                  href: '/tacgeu/candidates/member',
                               },
                               {
                                   title: 'Cast Vote',
-                                  href: '/vote',
+                                  href: '/tacgeu/vote',
                               },
                               {
                                   title: 'Election Poll',
-                                  href: '/polls',
+                                  href: '/tacgeu/polls',
                               },
                           ],
                       },
@@ -184,21 +184,21 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'All Applicants',
-                        href: '/applicants',
+                        href: '/tacgeu/applicants',
                     },
                     {
                         title: 'Pending Applicants',
-                        href: isMembershipCommittee ? '/applicants?status=Pending' : '/applicants?status=Pre-approved',
+                        href: isMembershipCommittee ? '/tacgeu/applicants?status=Pending' : '/tacgeu/applicants?status=Pre-approved',
                         badge: isMembershipCommittee ? updateCounts.pendingApplicantMC : updateCounts.pendingApplicantPres,
                     },
                     {
                         title: isMembershipCommittee ? 'Conditional Pre-approved Applicants' : 'Conditional Approved Applicants',
-                        href: isMembershipCommittee ? '/applicants?status=Conditional Pre-approved' : '/applicants?status=Conditional Approved',
+                        href: isMembershipCommittee ? '/tacgeu/applicants?status=Conditional Pre-approved' : '/tacgeu/applicants?status=Conditional Approved',
                         badge: isMembershipCommittee ? updateCounts.pendingConditionalPre : updateCounts.pendingPres,
                     },
                     {
                         title: 'Rejected Applicant',
-                        href: '/applicants?status=Rejected',
+                        href: '/tacgeu/applicants?status=Rejected',
                         badge: updateCounts.rejected,
                     },
                 ],
@@ -210,15 +210,15 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'All Members',
-                        href: '/members',
+                        href: '/tacgeu/members',
                     },
                     {
                         title: 'Active Members',
-                        href: '/members?membership_status=Active',
+                        href: '/tacgeu/members?membership_status=Active',
                     },
                     {
                         title: 'Inactive Members',
-                        href: '/members?membership_status=Inactive',
+                        href: '/tacgeu/members?membership_status=Inactive',
                     },
                 ],
             },
@@ -230,16 +230,16 @@ export function AppSidebar() {
             title: 'Resigned Members',
             icon: UserRoundMinus,
             isActive: true,
-            href: '/resigned',
+            href: '/tacgeu/resigned',
         });
         footerNavItems.push({
             title: 'Utility Settings',
-            href: '/app-settings',
+            href: '/tacgeu/app-settings',
             icon: Settings2,
         });
         footerNavItems.push({
             title: 'Form Settings',
-            href: '/app-settings/department',
+            href: '/tacgeu/app-settings/department',
             icon: FileCog,
         });
     }
@@ -247,7 +247,7 @@ export function AppSidebar() {
     if (isElectionCommittee) {
         footerNavItems.push({
             title: 'App Settings',
-            href: '/app-settings',
+            href: '/tacgeu/app-settings',
             icon: Settings2,
         });
     }
@@ -258,7 +258,7 @@ export function AppSidebar() {
             {
                 title: 'Pending Membership',
                 icon: UserPen,
-                href: '/applicants',
+                href: '/tacgeu/applicants',
             },
             {
                 title: 'Receipts',
@@ -267,43 +267,43 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'Monthly Contributions',
-                        href: '/monthly/contribution',
+                        href: '/tacgeu/monthly/contribution',
                     },
                     {
                         title: 'Collections',
-                        href: '/collections',
+                        href: '/tacgeu/collections',
                     },
                     {
                         title: 'Receipts',
-                        href: '/payments',
+                        href: '/tacgeu/payments',
                     },
                 ],
             },
             {
                 title: 'Disbursements Records',
-                href: '/expenses',
+                href: '/tacgeu/expenses',
                 icon: CreditCard,
                 isActive: true,
                 children: [
                     {
                         title: 'Disbursements',
-                        href: '/expenses',
+                        href: '/tacgeu/expenses',
                     },
                     // {
                     //     title: 'Approved Expenses',
-                    //     href: '/expenses?status=Approved',
+                    //     href: '/tacgeu/expenses?status=Approved',
                     // },
                     // {
                     //     title: 'Pending Expenses',
-                    //     href: '/expenses?status=Pending',
+                    //     href: '/tacgeu/expenses?status=Pending',
                     // },
                     // {
                     //     title: 'Rejected Expenses',
-                    //     href: '/expenses?status=Rejected',
+                    //     href: '/tacgeu/expenses?status=Rejected',
                     // },
                     // {
                     //     title: 'Canceled Expenses',
-                    //     href: '/expenses?status=Canceled',
+                    //     href: '/tacgeu/expenses?status=Canceled',
                     // },
                 ],
             },
@@ -314,7 +314,7 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'Financial Report',
-                        href: '/financial-summary',
+                        href: '/tacgeu/financial-summary',
                     },
                 ],
             },
@@ -325,7 +325,7 @@ export function AppSidebar() {
     if (isHRO) {
         mainNavItems.push({
             title: 'Union Members',
-            href: '/members',
+            href: '/tacgeu/members',
             icon: ClipboardList,
         });
     }
@@ -333,39 +333,39 @@ export function AppSidebar() {
     // Additional Expense Records for President (if not already added)
     if (isPresident) {
         // Check if Expense Records already added to avoid duplicates
-        if (!mainNavItems.some((item) => item.href === '/expenses')) {
+        if (!mainNavItems.some((item) => item.href === '/tacgeu/expenses')) {
             mainNavItems.push({
                 title: 'Expense Records',
-                href: '/expenses',
+                href: '/tacgeu/expenses',
                 icon: CreditCard,
                 isActive: true,
                 children: [
                     {
                         title: 'All Expenses',
-                        href: '/expenses',
+                        href: '/tacgeu/expenses',
                     },
                     // {
                     //     title: 'Approved Expenses',
-                    //     href: '/expenses?status=Approved',
+                    //     href: '/tacgeu/expenses?status=Approved',
                     // },
                     // {
                     //     title: 'Pending Expenses',
-                    //     href: '/expenses?status=Pending',
+                    //     href: '/tacgeu/expenses?status=Pending',
                     // },
                     // {
                     //     title: 'Rejected Expenses',
-                    //     href: '/expenses?status=Rejected',
+                    //     href: '/tacgeu/expenses?status=Rejected',
                     // },
                     // {
                     //     title: 'Canceled Expenses',
-                    //     href: '/expenses?status=Canceled',
+                    //     href: '/tacgeu/expenses?status=Canceled',
                     // },
                 ],
             });
         }
         footerNavItems.push({
             title: 'User Roles',
-            href: '/roles',
+            href: '/tacgeu/roles',
             icon: BookOpen,
         });
     }
@@ -373,26 +373,26 @@ export function AppSidebar() {
     if (isElectionCommittee) {
         mainNavItems.push({
             title: 'Election',
-            href: '/elections',
+            href: '/tacgeu/elections',
             icon: ClipboardList,
         });
 
         mainNavItems.push({
             title: 'Positions',
-            href: '/positions',
+            href: '/tacgeu/positions',
             icon: UserPlus2,
         });
 
         mainNavItems.push({
             title: 'Candidates',
-            href: '/candidates',
+            href: '/tacgeu/candidates',
             icon: Users,
         });
 
         mainNavItems.push(
             {
                 title: 'Election Poll',
-                href: '/polls',
+                href: '/tacgeu/polls',
                 icon: ChartNoAxesCombined,
             },
             {
@@ -402,14 +402,14 @@ export function AppSidebar() {
                 children: [
                     {
                         title: 'Election Report',
-                        href: '/election-summary',
+                        href: '/tacgeu/election-summary',
                     },
                 ],
             },
         );
         footerNavItems.push({
             title: 'User Roles',
-            href: '/roles',
+            href: '/tacgeu/roles',
             icon: BookOpen,
         });
     }

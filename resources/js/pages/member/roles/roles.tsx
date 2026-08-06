@@ -114,7 +114,7 @@ export default function Roles() {
     const updateUserRole = (userId: number, fullname: string, newRole: string) => {
         setIsUpdating(true);
         router.put(
-            `/users/${userId}/role`,
+            `/tacgeu/users/${userId}/role`,
             { role: newRole },
             {
                 preserveScroll: true,
@@ -142,7 +142,7 @@ export default function Roles() {
     const processMembershipDecision = (userId: number, fullname: string, status: string) => {
         setIsProcessing(true);
         router.put(
-            `/users/${userId}/status`,
+            `/tacgeu/users/${userId}/status`,
             { status: status },
             {
                 preserveScroll: true,
@@ -169,7 +169,7 @@ export default function Roles() {
 
     const deleteUser = (userId: number, fullname: string) => {
         setIsDeleting(true);
-        router.delete(`/users/${userId}/delete`, {
+        router.delete(`/tacgeu/users/${userId}/delete`, {
             preserveScroll: true,
             onSuccess: () => {
                 toast.success(`User Deleted`, {

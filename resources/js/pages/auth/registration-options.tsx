@@ -15,7 +15,7 @@ export default function RegisterSelection() {
         >
             <Head title="Registration Type" />
 
-            <div className="mt-10 grid gap-8 sm:grid-cols-2">
+            <div className="mt-10 grid gap-8 sm:grid-cols-1">
                 {/* Member Card */}
                 <Card
                     onClick={() => setSelectedType('member')}

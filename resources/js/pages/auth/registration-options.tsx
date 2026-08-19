@@ -65,22 +65,21 @@ export default function RegisterSelection() {
                 </Card>
 
                 {/* Officer Card */}
-                <Card
+                {/* <Card
                     onClick={() => setSelectedType('officer')}
                     className={`group relative cursor-pointer overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
                         selectedType === 'officer'
                             ? 'border-green-600 bg-green-50 dark:border-green-500 dark:bg-green-950/40'
                             : 'border-gray-200 dark:border-gray-700 hover:border-green-400 dark:hover:border-green-600'
-                    }`}
-                >
+                    }`}> */}
                     {/* Animated background accent */}
-                    <div
+                    {/* <div
                         className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-10 ${
                             selectedType === 'officer' ? 'bg-green-600' : 'bg-green-400'
                         }`}
-                    />
+                    /> */}
 
-                    <CardHeader className="relative text-center">
+                    {/* <CardHeader className="relative text-center">
                         <CardTitle className="flex flex-col items-center gap-3">
                             <UserCog
                                 className={`h-12 w-12 transition-transform duration-300 ${
@@ -91,9 +90,9 @@ export default function RegisterSelection() {
                             />
                             <span className="text-xl font-semibold">Officer Registration</span>
                         </CardTitle>
-                    </CardHeader>
+                    </CardHeader> */}
 
-                    <CardContent className="relative text-center text-sm text-gray-700 dark:text-gray-300">
+                    {/* <CardContent className="relative text-center text-sm text-gray-700 dark:text-gray-300">
                         Enroll as a <strong>TACGEU officer</strong> to help manage members, oversee events,
                         and maintain the organization’s administrative systems.
                     </CardContent>
@@ -110,7 +109,7 @@ export default function RegisterSelection() {
                             </Link>
                         </Button>
                     </CardFooter>
-                </Card>
+                </Card> */}
             </div>
 
             {/* Back to Login */}

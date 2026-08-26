@@ -19,7 +19,7 @@ import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useEffect, useState } from 'react';
 
 type LoginForm = {
-    email: string;
+    control_no: string;
     password: string;
     remember: boolean;
 };
@@ -34,7 +34,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     const [showPassword, setShowPassword] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
-        email: '',
+        control_no: '',
         password: '',
         remember: false,
     });
@@ -56,28 +56,28 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
     return (
         <>
-            <AuthLayout title="Log in to your TACGEU Account" description="Enter your Email and Password below to log in">
+            <AuthLayout title="Log in to your TACGEU Account" description="Enter your Control No. and Password below to log in">
                 <Head title="Log in" />
 
                 <form className="flex flex-col gap-6" onSubmit={submit}>
                     <div className="grid gap-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="email" className="text-gray-900">
-                                Email
+                            <Label htmlFor="control_no" className="text-gray-900">
+                                Control No.
                             </Label>
                             <Input
-                                id="email"
-                                type="email"
+                                id="control_no"
+                                type="text"
                                 required
                                 autoFocus
                                 tabIndex={1}
-                                autoComplete="email"
-                                value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
-                                placeholder="you@example.com"
+                                autoComplete="username"
+                                value={data.control_no}
+                                onChange={(e) => setData('control_no', e.target.value)}
+                                placeholder="Enter your Control No."
                                 className="text-gray-900"
                             />
-                            <InputError message={errors.email} />
+                            <InputError message={errors.control_no} />
                         </div>
 
                         <div className="grid gap-2">

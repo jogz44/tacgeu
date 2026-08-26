@@ -63,6 +63,8 @@ class User extends Authenticatable
         'is_first_log',
         'documents',
         'email_verified_at',
+        //controlno
+        'control_no',
     ];
 
     /**
@@ -101,5 +103,3 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 }
-
-

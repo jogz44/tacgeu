@@ -61,7 +61,7 @@ class EmployeePositionController extends Controller
 
     public function list()
     {
-        $positions = EmployeePosition::all();
+        $positions = EmployeePosition::orderBy('title', 'asc')->get(['id', 'title']);
 
         return response()->json($positions);
 

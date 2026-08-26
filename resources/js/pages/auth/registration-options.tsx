@@ -1,12 +1,30 @@
 import ProfileLayout from '@/layouts/profile-layout'
-import { Head, Link } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Users, UserCog, ArrowRight } from 'lucide-react'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { Users, ArrowRight, ShieldCheck } from 'lucide-react'
 import { useState } from 'react'
+import { Link } from '@inertiajs/react'
 
 export default function RegisterSelection() {
     const [selectedType, setSelectedType] = useState<'member' | 'officer' | null>(null)
+    const [privacyOpen, setPrivacyOpen] = useState(false)
+
+    const proceedToMemberRegistration = () => {
+        setPrivacyOpen(false)
+        router.visit(route('membership.member', { type: 'member' }))
+    }
 
     return (
         <ProfileLayout
@@ -51,65 +69,53 @@ export default function RegisterSelection() {
                     </CardContent>
 
                     <CardFooter className="relative justify-center">
-                        <Button
-                            variant={selectedType === 'member' ? 'default' : 'outline'}
-                            asChild
-                            className="w-full flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-200"
-                        >
-                            <Link href={route('membership.member', { type: 'member' })}>
-                                Register as Member
-                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </Link>
-                        </Button>
+                        <AlertDialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
+                            <AlertDialogTrigger asChild>
+                                <Button
+                                    variant={selectedType === 'member' ? 'default' : 'outline'}
+                                    onClick={(e) => {
+                                        // prevent the parent Card's onClick from double-firing selection logic oddly
+                                        e.stopPropagation()
+                                        setSelectedType('member')
+                                        setPrivacyOpen(true)
+                                    }}
+                                    className="w-full flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-200"
+                                >
+                                    Register as Member
+                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </Button>
+                            </AlertDialogTrigger>
+
+                            <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle className="flex items-center gap-2">
+                                        <ShieldCheck className="h-5 w-5 text-blue-600" />
+                                        Data Privacy Notice
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription className="text-left space-y-2">
+                                        <span className="block">
+                                            By continuing, you agree that the personal information you provide
+                                            (e.g. name, employee details, contact information) will be collected
+                                            and processed by TACGEU solely for membership registration, records
+                                            management, and union-related communications.
+                                        </span>
+                                        <span className="block">
+                                            Your data will be handled in accordance with the Data Privacy Act of
+                                            2012 (RA 10173) and will not be shared with third parties without your
+                                            consent, except as required by law.
+                                        </span>
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction onClick={proceedToMemberRegistration}>
+                                        I Agree & Continue
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </CardFooter>
                 </Card>
-
-                {/* Officer Card */}
-                {/* <Card
-                    onClick={() => setSelectedType('officer')}
-                    className={`group relative cursor-pointer overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
-                        selectedType === 'officer'
-                            ? 'border-green-600 bg-green-50 dark:border-green-500 dark:bg-green-950/40'
-                            : 'border-gray-200 dark:border-gray-700 hover:border-green-400 dark:hover:border-green-600'
-                    }`}> */}
-                    {/* Animated background accent */}
-                    {/* <div
-                        className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-10 ${
-                            selectedType === 'officer' ? 'bg-green-600' : 'bg-green-400'
-                        }`}
-                    /> */}
-
-                    {/* <CardHeader className="relative text-center">
-                        <CardTitle className="flex flex-col items-center gap-3">
-                            <UserCog
-                                className={`h-12 w-12 transition-transform duration-300 ${
-                                    selectedType === 'officer'
-                                        ? 'text-green-700 dark:text-green-400 scale-110'
-                                        : 'text-green-600 group-hover:scale-110'
-                                }`}
-                            />
-                            <span className="text-xl font-semibold">Officer Registration</span>
-                        </CardTitle>
-                    </CardHeader> */}
-
-                    {/* <CardContent className="relative text-center text-sm text-gray-700 dark:text-gray-300">
-                        Enroll as a <strong>TACGEU officer</strong> to help manage members, oversee events,
-                        and maintain the organization’s administrative systems.
-                    </CardContent>
-
-                    <CardFooter className="relative justify-center">
-                        <Button
-                            variant={selectedType === 'officer' ? 'default' : 'outline'}
-                            asChild
-                            className="w-full flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-200"
-                        >
-                            <Link href={route('membership.officer', { type: 'officer' })}>
-                                Register as Officer
-                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </Link>
-                        </Button>
-                    </CardFooter>
-                </Card> */}
             </div>
 
             {/* Back to Login */}

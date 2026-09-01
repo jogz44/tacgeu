@@ -473,8 +473,8 @@ class UserController extends Controller
             }
 
             // Generate a temporary password
-            $temporaryPassword = Str::random(10);
-            //$temporaryPassword = "password";
+            // $temporaryPassword = Str::random(10);
+            $temporaryPassword = "password";
 
             $validated['password'] = Hash::make($temporaryPassword);
 

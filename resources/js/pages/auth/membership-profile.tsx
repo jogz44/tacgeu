@@ -87,14 +87,14 @@ const fieldLabels: Record<keyof ProfileForm, string> = {
     documents: 'Documents',
 };
 
-type ClusterData = Record
+type ClusterData = Record<
     string,
     {
         region_name: string;
-        province_list: Record
+        province_list: Record<
             string,
             {
-                municipality_list: Record
+                municipality_list: Record<
                     string,
                     {
                         barangay_list: string[];

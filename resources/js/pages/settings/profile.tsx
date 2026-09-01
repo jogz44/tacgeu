@@ -871,7 +871,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                             {[
                                                 { key: 'physically_challenged', label: 'Are you a Physically-Challenged Person?' },
                                                 { key: 'solo_parent', label: 'Are you a Solo Parent?' },
-                                                { key: 'adoptive_couple', label: 'Are you part of an Adoptive Couple?' },
+                                                // { key: 'adoptive_couple', label: 'Are you part of an Adoptive Couple?' },
                                             ].map((item) => (
                                                 <div key={item.key}>
                                                     <Label>{item.label}</Label>

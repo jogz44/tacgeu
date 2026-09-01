@@ -428,6 +428,7 @@ class UserController extends Controller
         try {
             $validated = $request->validate([
                 // Personal Information
+                'control_no' => 'required|string|max:255|unique:users,control_no',
                 'last_name' => 'required|string|max:255',
                 'given_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',

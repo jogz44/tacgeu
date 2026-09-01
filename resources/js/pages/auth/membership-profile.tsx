@@ -1,3 +1,4 @@
+import InputError from '@/components/input-error';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -15,6 +16,7 @@ import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 
 type ProfileForm = {
+    control_no: string;
     last_name: string;
     given_name: string;
     middle_name: string;
@@ -52,6 +54,7 @@ type ProfileForm = {
 };
 
 const fieldLabels: Record<keyof ProfileForm, string> = {
+    control_no: 'Control No.',
     last_name: 'Last Name',
     given_name: 'Given Name',
     middle_name: 'Middle Name',
@@ -84,14 +87,14 @@ const fieldLabels: Record<keyof ProfileForm, string> = {
     documents: 'Documents',
 };
 
-type ClusterData = Record<
+type ClusterData = Record
     string,
     {
         region_name: string;
-        province_list: Record<
+        province_list: Record
             string,
             {
-                municipality_list: Record<
+                municipality_list: Record
                     string,
                     {
                         barangay_list: string[];
@@ -120,6 +123,8 @@ export default function MembershipProfile() {
     const [formError, setFormError] = useState<string | null>(null);
     const [emailStatus, setEmailStatus] = useState<'available' | 'taken' | 'checking' | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
+    const [controlNoStatus, setControlNoStatus] = useState<'available' | 'taken' | 'checking' | null>(null);
+    const [controlNoError, setControlNoError] = useState<string | null>(null);
     const [locationData, setLocationData] = useState<any[]>([]);
     const [cluster, setCluster] = useState<ClusterData>({});
     const [regionOptions, setRegionOptions] = useState<string[]>([]);
@@ -131,6 +136,7 @@ export default function MembershipProfile() {
     const [departments, setDepartments] = useState<Department[]>([]);
 
     const { data, setData, post, processing } = useForm<Required<ProfileForm>>({
+        control_no: '',
         last_name: '',
         given_name: '',
         middle_name: '',
@@ -280,6 +286,31 @@ export default function MembershipProfile() {
         }
     };
 
+    // NOTE: assumes a matching backend route named 'control_no.check' exists,
+    // mirroring email.check. Update the route name if yours differs.
+    const checkControlNo = async () => {
+        if (!data.control_no) return;
+
+        setControlNoStatus('checking');
+        setControlNoError(null);
+
+        try {
+            const response = await axios.get(route('control_no.check'), {
+                params: { control_no: data.control_no },
+            });
+
+            if (response.data.valid) {
+                setControlNoStatus('available');
+            } else {
+                setControlNoStatus('taken');
+                setControlNoError(response.data.message);
+            }
+        } catch (error) {
+            setControlNoError('Could not verify Control No. Try again.');
+            setControlNoStatus(null);
+        }
+    };
+
     useEffect(() => {
         const fetchPosition = async () => {
             const response = await axios.get('/position');
@@ -301,6 +332,7 @@ export default function MembershipProfile() {
         setSaving(true);
         // List of required fields
         const requiredFields: (keyof ProfileForm)[] = [
+            'control_no',
             'last_name',
             'given_name',
             'contact_number',
@@ -403,6 +435,32 @@ export default function MembershipProfile() {
                         </p>
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                             <div>
+                                <Label>
+                                    Control No. <span className="font-bold text-red-600">*</span>
+                                </Label>
+                                <Input
+                                    value={data.control_no}
+                                    onBlur={checkControlNo}
+                                    onChange={(e) => {
+                                        setData('control_no', e.target.value);
+                                        setControlNoStatus(null);
+                                        setControlNoError(null);
+                                    }}
+                                    placeholder="e.g., 2024-0001"
+                                />
+                                <div className="mt-2 flex justify-end">
+                                    {controlNoStatus === 'checking' && (
+                                        <p className="rounded-full bg-gray-200 px-3 py-1 text-sm text-gray-500">Checking...</p>
+                                    )}
+                                    {controlNoStatus === 'available' && (
+                                        <p className="rounded-full bg-green-100 px-3 py-1 text-sm text-green-600">Control No. is available</p>
+                                    )}
+                                    {controlNoStatus === 'taken' && (
+                                        <p className="rounded-full bg-red-100 px-3 py-1 text-sm text-red-600">{controlNoError}</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div>
                                 <Label>Last Name <span className="font-bold text-red-600">*</span></Label>
                                 <Input value={data.last_name} onChange={(e) => setData('last_name', e.target.value)} placeholder="e.g., Dela Cruz" />
                             </div>
@@ -418,6 +476,8 @@ export default function MembershipProfile() {
                                     placeholder="e.g., Katakutan"
                                 />
                             </div>
+                        </div>
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                             <div>
                                 <Label>Suffix</Label>
                                 <Select value={data.suffix} onValueChange={(value) => setData('suffix', value)}>

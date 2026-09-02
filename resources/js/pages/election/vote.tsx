@@ -271,7 +271,7 @@ export default function Vote({ require_exact_vote_count, hasVoted }: VoteProps) 
                                                                 )}
                                                                 {candidate.image ? (
                                                                     <img
-                                                                        src={`/storage/${candidate.image}`}
+                                                                        src={`/tacgeu/storage/${candidate.image}`}
                                                                         alt={fullName}
                                                                         className="mb-3 h-24 w-24 rounded-full object-cover"
                                                                         onError={(e) => {

@@ -208,7 +208,7 @@ export default function Welcome({ announcements }: AnnouncementPageProps) {
                         <div className="mx-auto grid max-w-5xl gap-12 sm:grid-cols-2">
                             {programAnnouncements.map((program) => (
                                 <div key={program.id} className="overflow-hidden rounded-lg bg-white shadow-lg">
-                                    <img src={`/storage/${program.image}`} alt={program.title} className="h-48 w-full object-cover" />
+                                    <img src={`/tacgeu/storage/${program.image}`} alt={program.title} className="h-48 w-full object-cover" />
                                     <ProgramCard program={program} />
                                 </div>
                             ))}
@@ -385,7 +385,7 @@ function EventCard({ title, date, description, image }: { title: string; date: s
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-shadow duration-300 hover:shadow-xl">
             <div className="relative h-98 w-full overflow-hidden">
                 <img
-                    src={`/storage/${image}`}
+                    src={`/tacgeu/storage/${image}`}
                     alt={title}
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                 />

@@ -439,7 +439,7 @@ export default function candidates() {
                                                                 {/* Profile Image */}
                                                                 {candidate.image ? (
                                                                     <img
-                                                                        src={`/storage/${candidate.image}`}
+                                                                        src={`/tacgeu/storage/${candidate.image}`}
                                                                         alt={`${candidate.given_name} ${candidate.last_name}`}
                                                                         className={`${getRingColor(candidate.id)} h-12 w-12 rounded-full object-cover ring-2`}
                                                                         onError={(e) => {

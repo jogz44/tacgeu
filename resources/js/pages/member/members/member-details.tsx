@@ -206,7 +206,7 @@ export default function MemberDetails({ user }: { user: User }) {
                             <div className="mb-8 flex justify-center">
                                 {user.image ? (
                                     <img
-                                        src={`/storage/${user.image}`}
+                                        src={`/tacgeu/storage/${user.image}`}
                                         alt="Profile"
                                         className="h-40 w-40 rounded-full object-cover shadow-lg ring-2 ring-indigo-400 transition-transform duration-300 ease-in-out hover:scale-105"
                                         onError={(e) => {
@@ -310,7 +310,7 @@ export default function MemberDetails({ user }: { user: User }) {
                                         <div className="text-sm text-gray-900 dark:text-white">
                                             {user.documents ? (
                                                 <a
-                                                    href={`/storage/${user.documents}`}
+                                                    href={`/tacgeu/storage/${user.documents}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="text-blue-600 hover:underline"

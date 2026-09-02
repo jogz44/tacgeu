@@ -132,7 +132,7 @@ export default function Polls() {
                                                                         {/* image */}
                                                                         {image ? (
                                                                             <img
-                                                                                src={`/storage/${image}`}
+                                                                                src={`/tacgeu/storage/${image}`}
                                                                                 alt={candidate}
                                                                                 className="h-16 w-16 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
                                                                                 onError={(e) => {

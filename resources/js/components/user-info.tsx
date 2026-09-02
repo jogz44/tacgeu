@@ -42,7 +42,7 @@ export function UserInfo({ user, showRole = true }: { user: User; showRole?: boo
             <Avatar className="h-8 w-8 overflow-hidden rounded-full">
                 {user.image ? (
                     <AvatarImage
-                        src={`/storage/${user.image}`}
+                        src={`/tacgeu/storage/${user.image}`}
                         alt={fullName}
                         className="h-8 w-8 rounded-full object-cover ring-2"
                         onError={(e) => {

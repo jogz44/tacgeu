@@ -345,7 +345,7 @@ export default function Members() {
                                                             {/* Profile Image */}
                                                             {user.image ? (
                                                                 <img
-                                                                    src={`/storage/${user.image}`}
+                                                                    src={`/tacgeu/storage/${user.image}`}
                                                                     alt={`${user.given_name} ${user.last_name}`}
                                                                     className="h-12 w-12 rounded-full object-cover ring-2 ring-yellow-500"
                                                                     onError={(e) => {

@@ -715,7 +715,7 @@ export default function expenses() {
                                             <TableCell>
                                                 {selectedExpense.documents ? (
                                                     <a
-                                                        href={`/storage/${selectedExpense.documents}`}
+                                                        href={`/tacgeu/storage/${selectedExpense.documents}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="text-blue-600 hover:underline"

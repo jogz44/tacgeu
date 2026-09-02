@@ -446,11 +446,11 @@ export default function expenses() {
                                                     <TableCell>
                                                         {announcement.image ? (
                                                             <img
-                                                                src={`/storage/${announcement.image}`}
+                                                                src={`/tacgeu/storage/${announcement.image}`}
                                                                 alt="Announcement"
                                                                 className="h-12 w-12 cursor-pointer rounded object-cover transition hover:opacity-80"
                                                                 onClick={() => {
-                                                                    setSelectedImage(`/storage/${announcement.image}`);
+                                                                    setSelectedImage(`/tacgeu/storage/${announcement.image}`);
                                                                     setIsImageOpen(true);
                                                                 }}
                                                                 onError={(e) => {
@@ -557,7 +557,7 @@ export default function expenses() {
                                                                             scheduled_at: announcement.scheduled_at,
                                                                             created_at: announcement.created_at || '',
                                                                         });
-                                                                        setPreview(announcement.image ? `/storage/${announcement.image}` : null);
+                                                                        setPreview(announcement.image ? `/tacgeu/storage/${announcement.image}` : null);
                                                                         setImageFile(null);
                                                                         setEnabled(announcement.status === 'active'); // if using separate enabled state for switch
                                                                         setOpen(true);

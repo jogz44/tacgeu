@@ -143,7 +143,7 @@ export function AppSidebarHeader({ breadcrumbs = [] }: { breadcrumbs?: Breadcrum
                     <Avatar className="h-8 w-8 overflow-hidden rounded-full">
                         {auth.user.image ? (
                             <AvatarImage
-                                src={`/storage/${auth.user.image}`}
+                                src={`/tacgeu/storage/${auth.user.image}`}
                                 alt={fullName}
                                 className="h-8 w-8 rounded-full object-cover ring-2"
                                 onError={(e) => {

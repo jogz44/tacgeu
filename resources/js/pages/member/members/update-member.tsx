@@ -327,7 +327,7 @@ export default function Members({ user, mustVerifyEmail, status }: { user: User,
             setPreview(objectUrl);
             return () => URL.revokeObjectURL(objectUrl);
         } else if (typeof data.image === 'string' && data.image !== '') {
-            setPreview(`/storage/${data.image}`);
+            setPreview(`${window.APP_BASE_URL}storage/${data.image}`);
         } else {
             setPreview(null);
         }
@@ -955,7 +955,7 @@ export default function Members({ user, mustVerifyEmail, status }: { user: User,
                                                 <div className="text-sm text-gray-900 dark:text-white">
                                                     {data.documents ? (
                                                         <a
-                                                            href={`/storage/${data.documents}`}
+                                                            href={`/tacgeu/storage/${data.documents}`}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             className="text-blue-600 hover:underline"

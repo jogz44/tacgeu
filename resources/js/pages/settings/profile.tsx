@@ -328,7 +328,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             return () => URL.revokeObjectURL(objectUrl);
         } else if (typeof data.image === 'string' && data.image !== '') {
             // Existing image path from backend
-            setPreview(`/storage/${data.image}`);
+            setPreview(`/tacgeu/storage/${data.image}`);
         } else {
             setPreview(null);
         }
@@ -1035,7 +1035,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                             <div className="text-sm text-gray-900 dark:text-white">
                                                 {typeof data.documents === 'string' ? (
                                                     <a
-                                                        href={`/storage/${data.documents}`}
+                                                        href={`/tacgeu/storage/${data.documents}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="text-blue-600 hover:underline"

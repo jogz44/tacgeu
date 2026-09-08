@@ -85,7 +85,7 @@ export default function candidates() {
             const query = new URLSearchParams({
                 election_id,
             }).toString();
-            const response = await fetch(`/candidates/approvedCandidates?${query}`);
+            const response = await fetch(`/tacgeu/candidates/approvedCandidates?${query}`);
             const data = await response.json();
 
             if (response.ok) {

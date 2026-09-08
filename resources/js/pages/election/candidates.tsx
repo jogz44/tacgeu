@@ -95,7 +95,7 @@ export default function candidates() {
                 search,
                 status,
             }).toString();
-            const response = await fetch(`/candidates/list?${query}`);
+            const response = await fetch(`/tacgeu/candidates/list?${query}`);
             const data = await response.json();
 
             if (response.ok) {

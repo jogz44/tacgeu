@@ -360,15 +360,15 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
         e.preventDefault();
 
         const formData = new FormData();
+        const fileFields = ['image', 'documents'];
 
-        // Append all form fields to FormData
         Object.entries(data).forEach(([key, value]) => {
             if (value !== null && value !== undefined) {
-                if (key === 'image') {
+                if (fileFields.includes(key)) {
                     if (value instanceof File) {
-                        formData.append('image', value);
+                        formData.append(key, value);
                     }
-                    // else: don't append if it's just a string
+                    // else: existing string path — skip, backend keeps current value
                 } else if (typeof value === 'boolean') {
                     formData.append(key, value ? '1' : '0');
                 } else {
@@ -376,6 +376,21 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 }
             }
         });
+        // // Append all form fields to FormData
+        // Object.entries(data).forEach(([key, value]) => {
+        //     if (value !== null && value !== undefined) {
+        //         if (key === 'image') {
+        //             if (value instanceof File) {
+        //                 formData.append('image', value);
+        //             }
+        //             // else: don't append if it's just a string
+        //         } else if (typeof value === 'boolean') {
+        //             formData.append(key, value ? '1' : '0');
+        //         } else {
+        //             formData.append(key, String(value));
+        //         }
+        //     }
+        // });
 
         router.post(route('profile.update'), formData, {
             forceFormData: true,

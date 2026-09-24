@@ -120,13 +120,13 @@ export default function Resigned() {
 
     useEffect(() => {
         const fetchPosition = async () => {
-            const response = await axios.get('/tacgeu/position');
+            const response = await axios.get('/position');
             const data = Array.isArray(response.data) ? response.data : [];
             setPosition(data);
         };
 
         const fetchDepartment = async () => {
-            const response = await axios.get('/tacgeu/department');
+            const response = await axios.get('/department');
             const data = Array.isArray(response.data) ? response.data : [];
             setDepartment(data);
         };

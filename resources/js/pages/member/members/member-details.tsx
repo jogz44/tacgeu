@@ -95,7 +95,7 @@ export default function MemberDetails({ user }: { user: User }) {
     const approveApplicant = (id: number, fullname: string, remarks: string) => {
         setIsApproving(true);
         router.put(
-            `/applicant/${id}`,
+            `/tacgeu/applicant/${id}`,
             { remarks },
             {
                 preserveScroll: true,
@@ -131,7 +131,7 @@ export default function MemberDetails({ user }: { user: User }) {
             status = 'Conditional Approved';
         }
         router.put(
-            `/applicant/reject/${id}`,
+            `/tacgeu/applicant/reject/${id}`,
             { remarks, status },
             {
                 preserveScroll: true,

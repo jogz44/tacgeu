@@ -49,7 +49,7 @@ export default function AppSettings({ app_setting }: Props) {
         if (!editingSetting) return;
 
         router.post(
-            `/app-settings/update/${editingSetting.id}`,
+            `/tacgeu/app-settings/update/${editingSetting.id}`,
             {
                 value: editedValue,
             },

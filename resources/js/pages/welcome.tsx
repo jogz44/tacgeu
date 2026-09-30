@@ -347,17 +347,17 @@ export default function Welcome({ announcements }: AnnouncementPageProps) {
                         <h4 className="mb-4 font-semibold text-gray-900">Quick Links</h4>
                         <ul className="space-y-3 text-sm">
                             <li>
-                                <a href="/" className="transition-colors duration-200 hover:text-teal-600">
+                                <a href="/tacgeu" className="transition-colors duration-200 hover:text-teal-600">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="/membership" className="transition-colors duration-200 hover:text-teal-600">
+                                <a href="/tacgeu/membership" className="transition-colors duration-200 hover:text-teal-600">
                                     Membership
                                 </a>
                             </li>
                             <li>
-                                <a href="/login" className="transition-colors duration-200 hover:text-teal-600">
+                                <a href="/tacgeu/login" className="transition-colors duration-200 hover:text-teal-600">
                                     Log In
                                 </a>
                             </li>

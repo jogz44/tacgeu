@@ -933,7 +933,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                     )}
                                 </div>
                             )}
-                            {['Conditional Pre-approved', 'Conditional Approved'].includes(data.status ?? '') ? (
+                            {['Conditional Pre-approved', 'Conditional Approved','Pending'].includes(data.status ?? '') ? (
                                 // PDF Document Upload Section
                                 <section className="grid gap-4">
                                     <h2 className="text-xl font-semibold">Update PDF Document</h2>

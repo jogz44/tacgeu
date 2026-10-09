@@ -1,5 +1,5 @@
 import ProfileLayout from '@/layouts/profile-layout'
-import { Head, router } from '@inertiajs/react'
+import { Head, router, Link } from '@inertiajs/react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,15 +13,18 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Users, ArrowRight, ShieldCheck } from 'lucide-react'
+import { Users, ArrowRight, ShieldCheck, Lock, AlertTriangle } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from '@inertiajs/react'
+
+// Set to true to reopen registration
+const REGISTRATION_OPEN = false
 
 export default function RegisterSelection() {
     const [selectedType, setSelectedType] = useState<'member' | 'officer' | null>(null)
     const [privacyOpen, setPrivacyOpen] = useState(false)
 
     const proceedToMemberRegistration = () => {
+        if (!REGISTRATION_OPEN) return
         setPrivacyOpen(false)
         router.visit(route('membership.member', { type: 'member' }))
     }
@@ -33,22 +36,48 @@ export default function RegisterSelection() {
         >
             <Head title="Registration Type" />
 
+            {/* Cut-off notice */}
+            {!REGISTRATION_OPEN && (
+                <div
+                    role="alert"
+                    className="mt-6 flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4 text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200"
+                >
+                    <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
+                    <div className="text-sm">
+                        <p className="font-semibold">Registration is now cut off</p>
+                        <p>
+                            The registration period has ended and we are no longer accepting new
+                            registrations. Please contact the TACGEU office for questions or for
+                            updates on the next registration.
+                        </p>
+                    </div>
+                </div>
+            )}
+
             <div className="mt-10 grid gap-8 sm:grid-cols-1">
                 {/* Member Card */}
                 <Card
-                    onClick={() => setSelectedType('member')}
-                    className={`group relative cursor-pointer overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                    onClick={() => REGISTRATION_OPEN && setSelectedType('member')}
+                    className={`group relative overflow-hidden border-2 transition-all duration-300 ${
+                        REGISTRATION_OPEN
+                            ? 'cursor-pointer hover:scale-105 hover:shadow-xl'
+                            : 'cursor-not-allowed opacity-60'
+                    } ${
                         selectedType === 'member'
                             ? 'border-blue-600 bg-blue-50 dark:border-blue-500 dark:bg-blue-950/40'
-                            : 'border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600'
+                            : REGISTRATION_OPEN
+                              ? 'border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600'
+                              : 'border-gray-200 dark:border-gray-700'
                     }`}
                 >
                     {/* Animated background accent */}
-                    <div
-                        className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-10 ${
-                            selectedType === 'member' ? 'bg-blue-600' : 'bg-blue-400'
-                        }`}
-                    />
+                    {REGISTRATION_OPEN && (
+                        <div
+                            className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-10 ${
+                                selectedType === 'member' ? 'bg-blue-600' : 'bg-blue-400'
+                            }`}
+                        />
+                    )}
 
                     <CardHeader className="relative text-center">
                         <CardTitle className="flex flex-col items-center gap-3">
@@ -69,51 +98,58 @@ export default function RegisterSelection() {
                     </CardContent>
 
                     <CardFooter className="relative justify-center">
-                        <AlertDialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
-                            <AlertDialogTrigger asChild>
-                                <Button
-                                    variant={selectedType === 'member' ? 'default' : 'outline'}
-                                    onClick={(e) => {
-                                        // prevent the parent Card's onClick from double-firing selection logic oddly
-                                        e.stopPropagation()
-                                        setSelectedType('member')
-                                        setPrivacyOpen(true)
-                                    }}
-                                    className="w-full flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-200"
-                                >
-                                    Register as Member
-                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                                </Button>
-                            </AlertDialogTrigger>
+                        {!REGISTRATION_OPEN ? (
+                            <Button disabled className="w-full flex items-center justify-center gap-2">
+                                <Lock className="h-4 w-4" />
+                                Registration Cut Off
+                            </Button>
+                        ) : (
+                            <AlertDialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
+                                <AlertDialogTrigger asChild>
+                                    <Button
+                                        variant={selectedType === 'member' ? 'default' : 'outline'}
+                                        onClick={(e) => {
+                                            // prevent the parent Card's onClick from double-firing selection logic oddly
+                                            e.stopPropagation()
+                                            setSelectedType('member')
+                                            setPrivacyOpen(true)
+                                        }}
+                                        className="w-full flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-200"
+                                    >
+                                        Register as Member
+                                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                    </Button>
+                                </AlertDialogTrigger>
 
-                            <AlertDialogContent onClick={(e) => e.stopPropagation()}>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle className="flex items-center gap-2">
-                                        <ShieldCheck className="h-5 w-5 text-blue-600" />
-                                        Data Privacy Notice
-                                    </AlertDialogTitle>
-                                    <AlertDialogDescription className="text-left space-y-2">
-                                        <span className="block">
-                                            By continuing, you agree that the personal information you provide
-                                            (e.g. name, employee details, contact information) will be collected
-                                            and processed by TACGEU solely for membership registration, records
-                                            management, and union-related communications.
-                                        </span>
-                                        <span className="block">
-                                            Your data will be handled in accordance with the Data Privacy Act of
-                                            2012 (RA 10173) and will not be shared with third parties without your
-                                            consent, except as required by law.
-                                        </span>
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={proceedToMemberRegistration}>
-                                        I Agree & Continue
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                                <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle className="flex items-center gap-2">
+                                            <ShieldCheck className="h-5 w-5 text-blue-600" />
+                                            Data Privacy Notice
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription className="text-left space-y-2">
+                                            <span className="block">
+                                                By continuing, you agree that the personal information you provide
+                                                (e.g. name, employee details, contact information) will be collected
+                                                and processed by TACGEU solely for membership registration, records
+                                                management, and union-related communications.
+                                            </span>
+                                            <span className="block">
+                                                Your data will be handled in accordance with the Data Privacy Act of
+                                                2012 (RA 10173) and will not be shared with third parties without your
+                                                consent, except as required by law.
+                                            </span>
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                        <AlertDialogAction onClick={proceedToMemberRegistration}>
+                                            I Agree & Continue
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        )}
                     </CardFooter>
                 </Card>
             </div>

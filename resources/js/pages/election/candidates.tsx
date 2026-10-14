@@ -14,7 +14,7 @@ import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { CheckCircle, CircleCheck, CircleX, Hourglass, LoaderCircle, Pencil, Trash2, UserPlus, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'sonner';
-
+import { CheckCircle, CircleCheck, CircleX, FileDown, Hourglass, LoaderCircle, Pencil, Trash2, UserPlus, XCircle } from 'lucide-react'; //for importing data
 import {
     AlertDialog,
     AlertDialogAction,
@@ -256,6 +256,92 @@ export default function candidates() {
         return startStr === endStr ? startStr : `${startStr} - ${endStr}`;
     };
 
+    const escapeHtml = (value: unknown) =>
+    String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+
+const handleExport = () => {
+    if (candidates.length === 0) {
+        toast.error('Error', {
+            description: 'No candidates to export.',
+            icon: <CircleX className="h-5 w-5 text-red-500" />,
+            duration: 3500,
+        });
+        return;
+    }
+
+    const election = elections.find((e) => String(e.id) === selectedElection);
+    const origin = window.location.origin;
+
+    const rows = candidates
+        .map((c, i) => {
+            const name = `${c.last_name}, ${c.given_name} ${c.middle_name ?? ''}`.trim();
+            const designation = c.office || '—'; // change to c.candidacy if you want the position they're running for
+            const photo = c.image
+                ? `<img src="${origin}/tacgeu/storage/${escapeHtml(c.image)}" alt="" />`
+                : `<div class="noimg">No Image</div>`;
+
+            return `
+                <tr>
+                    <td class="num">${i + 1}</td>
+                    <td class="photo">${photo}</td>
+                    <td>${escapeHtml(name)}</td>
+                    <td>${escapeHtml(designation)}</td>
+                </tr>`;
+        })
+        .join('');
+
+    const html = `<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <title>${escapeHtml(election?.title ?? 'Candidates')} - Candidates</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 24px; color: #111; }
+                h1 { font-size: 20px; margin: 0 0 4px; }
+                p.sub { margin: 0 0 16px; color: #555; font-size: 13px; }
+                table { width: 100%; border-collapse: collapse; }
+                th, td { border: 1px solid #ccc; padding: 8px; font-size: 14px; text-align: left; vertical-align: middle; }
+                th { background: #0d9488; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                td.num { width: 40px; text-align: center; }
+                td.photo { width: 90px; text-align: center; }
+                td.photo img { width: 72px; height: 72px; object-fit: cover; border-radius: 50%; }
+                .noimg { width: 72px; height: 72px; line-height: 72px; margin: 0 auto; border-radius: 50%; background: #e5e7eb; color: #6b7280; font-size: 10px; text-align: center; }
+                tr { page-break-inside: avoid; }
+            </style>
+        </head>
+        <body>
+            <h1>${escapeHtml(election?.title ?? 'Election')} — Candidates</h1>
+            <p class="sub">Generated ${new Date().toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}</p>
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Photo</th><th>Name</th><th>Designation</th></tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+            <script>
+                window.onload = function () { window.print(); };
+            <\/script>
+        </body>
+        </html>`;
+
+            const win = window.open('', '_blank');
+            if (!win) {
+                toast.error('Error', {
+                    description: 'Pop-up blocked. Please allow pop-ups for this site.',
+                    icon: <CircleX className="h-5 w-5 text-red-500" />,
+                    duration: 5000,
+                });
+                return;
+            }
+            win.document.open();
+            win.document.write(html);
+            win.document.close();
+        };
+
     return (
         <>
             <Toaster position="top-right" />
@@ -308,6 +394,17 @@ export default function candidates() {
                                         </SelectContent>
                                     </Select>
 
+                                            {/* Export Button */}
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={handleExport}
+                                            disabled={candidates.length === 0}
+                                            className="flex w-full items-center gap-2 md:w-auto"
+                                        >
+                                            <FileDown className="h-4 w-4" />
+                                            Export
+                                        </Button>
                                     {/* Action Button */}
                                     {(auth?.user?.role === 'Election Committee' || auth?.user?.role === 'Member') &&
                                         (() => {

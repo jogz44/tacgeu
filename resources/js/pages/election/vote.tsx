@@ -133,33 +133,67 @@ export default function Vote({ require_exact_vote_count, hasVoted }: VoteProps) 
         });
     };
 
+    // const stripTime = (date: Date | string) => {
+    //     const d = new Date(date);
+    //     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    // };
+    // const todayDate = stripTime(new Date());
+    // const electionStart = stripTime(election.start_date);
+    // const electionEnd = stripTime(election.end_date);
+
+    // const isElectionActive = todayDate >= electionStart && todayDate <= electionEnd;
+
+    // let electionStatus = 'Upcoming Election';
+    // if (todayDate >= electionStart && todayDate <= electionEnd) {
+    //     electionStatus = 'Ongoing Election';
+    // } else if (todayDate > electionEnd) {
+    //     electionStatus = 'Election Ended';
+    // }
+
+    // const formattedStart = electionStart.toLocaleDateString('en-US', {
+    //     month: 'short',
+    //     day: '2-digit',
+    //     year: 'numeric',
+    // });
+    // const formattedEnd = electionEnd.toLocaleDateString('en-US', {
+    //     month: 'short',
+    //     day: '2-digit',
+    //     year: 'numeric',
+    // });
     const stripTime = (date: Date | string) => {
         const d = new Date(date);
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     };
-    const todayDate = stripTime(new Date());
+
+    const VOTING_START = { hour: 13, minute: 30 }; // 1:30 PM
+    const VOTING_END = { hour: 14, minute: 5 };    // 2:05 PM
+
+    const setTime = (date: Date, { hour, minute }: { hour: number; minute: number }) => {
+        const d = new Date(date);
+        d.setHours(hour, minute, 0, 0);
+        return d;
+    };
+
+    const now = new Date();
+    const todayDate = stripTime(now);
     const electionStart = stripTime(election.start_date);
     const electionEnd = stripTime(election.end_date);
 
-    const isElectionActive = todayDate >= electionStart && todayDate <= electionEnd;
+    const isWithinDateRange = todayDate >= electionStart && todayDate <= electionEnd;
+    const isWithinVotingHours =
+        now >= setTime(todayDate, VOTING_START) && now <= setTime(todayDate, VOTING_END);
+
+    const isElectionActive = isWithinDateRange && isWithinVotingHours;
+
+    // Ended once the last day's closing time has passed
+    const hasEnded = now > setTime(electionEnd, VOTING_END);
 
     let electionStatus = 'Upcoming Election';
-    if (todayDate >= electionStart && todayDate <= electionEnd) {
-        electionStatus = 'Ongoing Election';
-    } else if (todayDate > electionEnd) {
+    if (hasEnded) {
         electionStatus = 'Election Ended';
+    } else if (isElectionActive) {
+        electionStatus = 'Ongoing Election';
     }
-
-    const formattedStart = electionStart.toLocaleDateString('en-US', {
-        month: 'short',
-        day: '2-digit',
-        year: 'numeric',
-    });
-    const formattedEnd = electionEnd.toLocaleDateString('en-US', {
-        month: 'short',
-        day: '2-digit',
-        year: 'numeric',
-    });
 
     // Check if same day
     const sameDay = electionStart.toDateString() === electionEnd.toDateString();

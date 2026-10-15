@@ -263,6 +263,35 @@ export default function candidates() {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
 
+function formatServiceYears(startDate: string | Date): string {
+    const start = typeof startDate === 'string' ? new Date(startDate.replace(' ', 'T')) : startDate;
+    if (isNaN(start.getTime())) return '—';
+
+    const now = new Date();
+
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    let days = now.getDate() - start.getDate();
+
+    if (days < 0) {
+        months--;
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    const parts: string[] = [];
+    if (years > 0) parts.push(`${years} year${years !== 1 ? 's' : ''}`);
+    if (months > 0) parts.push(`${months} month${months !== 1 ? 's' : ''}`);
+    if (days > 0 || parts.length === 0) parts.push(`${days} day${days !== 1 ? 's' : ''}`);
+
+    return parts.join(', ');
+}
+
 const handleExport = () => {
     if (candidates.length === 0) {
         toast.error('Error', {
@@ -276,71 +305,108 @@ const handleExport = () => {
     const election = elections.find((e) => String(e.id) === selectedElection);
     const origin = window.location.origin;
 
-    const rows = candidates
-        .map((c, i) => {
-            const name = `${c.last_name}, ${c.given_name} ${c.middle_name ?? ''}`.trim();
-            const designation = c.office || '—'; // change to c.candidacy if you want the position they're running for
-            const photo = c.image
-                ? `<img src="${origin}/tacgeu/storage/${escapeHtml(c.image)}" alt="" />`
-                : `<div class="noimg">No Image</div>`;
+    // Group candidates by position, same as the Vote page
+    const electionPositions = positions.filter((p) => p.election?.id === Number(selectedElection));
+    const groups = electionPositions
+        .map((p) => ({
+            title: p.position,
+            slots: (p as any).slots,
+            items: candidates.filter((c) => Number(c.position_id) === Number(p.id)),
+        }))
+        .filter((g) => g.items.length > 0);
 
+    // Candidates whose position isn't in the list (safety net)
+    const knownIds = new Set(electionPositions.map((p) => Number(p.id)));
+    const others = candidates.filter((c) => !knownIds.has(Number(c.position_id)));
+    if (others.length > 0) {
+        groups.push({ title: 'Other', slots: undefined, items: others });
+    }
+
+    const buildRow = (c: Candidate, i: number, positionTitle: string) => {
+        const name = [c.given_name, c.middle_name, c.last_name, (c as any).suffix]
+            .filter((n) => n && String(n).trim() !== '')
+            .join(' ');
+        const photo = c.image
+            ? `<img src="${origin}/tacgeu/storage/${escapeHtml(c.image)}" alt="" />`
+            : `<div class="noimg">No Image</div>`;
+        const service = c.created_at ? formatServiceYears(c.created_at) : '—';
+
+        return `
+            <tr>
+                <td class="num">${i + 1}</td>
+                <td class="photo">${photo}</td>
+                <td>${escapeHtml(name)}</td>
+                <td>${escapeHtml(positionTitle)}</td>
+                <td>${escapeHtml(c.office || '—')}</td>
+                <td>${escapeHtml(c.education || '—')}</td>
+                <td>${escapeHtml(c.college_degree || '—')}</td>
+                <td>${escapeHtml(service)}</td>
+            </tr>`;
+    };
+
+    const sections = groups
+        .map((g) => {
+            const rows = g.items.map((c, i) => buildRow(c, i, g.title || c.candidacy || '—')).join('');
+            const slotsText = g.slots ? ` <span class="slots">(${escapeHtml(g.slots)} slot${Number(g.slots) > 1 ? 's' : ''})</span>` : '';
             return `
-                <tr>
-                    <td class="num">${i + 1}</td>
-                    <td class="photo">${photo}</td>
-                    <td>${escapeHtml(name)}</td>
-                    <td>${escapeHtml(designation)}</td>
-                </tr>`;
+                <h2>${escapeHtml(g.title)}${slotsText}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th><th>Photo</th><th>Name</th><th>Position</th><th>Office</th>
+                            <th>Education</th><th>College Degree</th><th>Length of Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
         })
         .join('');
 
     const html = `<!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8" />
-            <title>${escapeHtml(election?.title ?? 'Candidates')} - Candidates</title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 24px; color: #111; }
-                h1 { font-size: 20px; margin: 0 0 4px; }
-                p.sub { margin: 0 0 16px; color: #555; font-size: 13px; }
-                table { width: 100%; border-collapse: collapse; }
-                th, td { border: 1px solid #ccc; padding: 8px; font-size: 14px; text-align: left; vertical-align: middle; }
-                th { background: #0d9488; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-                td.num { width: 40px; text-align: center; }
-                td.photo { width: 90px; text-align: center; }
-                td.photo img { width: 72px; height: 72px; object-fit: cover; border-radius: 50%; }
-                .noimg { width: 72px; height: 72px; line-height: 72px; margin: 0 auto; border-radius: 50%; background: #e5e7eb; color: #6b7280; font-size: 10px; text-align: center; }
-                tr { page-break-inside: avoid; }
-            </style>
-        </head>
-        <body>
-            <h1>${escapeHtml(election?.title ?? 'Election')} — Candidates</h1>
-            <p class="sub">Generated ${new Date().toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}</p>
-            <table>
-                <thead>
-                    <tr><th>#</th><th>Photo</th><th>Name</th><th>Designation</th></tr>
-                </thead>
-                <tbody>${rows}</tbody>
-            </table>
-            <script>
-                window.onload = function () { window.print(); };
-            <\/script>
-        </body>
-        </html>`;
+            <html>
+            <head>
+                <meta charset="utf-8" />
+                <title>${escapeHtml(election?.title ?? 'Candidates')} - Candidates</title>
+                <style>
+                    @page { size: landscape; margin: 12mm; }
+                    body { font-family: Arial, sans-serif; margin: 24px; color: #111; }
+                    h1 { font-size: 20px; margin: 0 0 4px; }
+                    h2 { font-size: 15px; margin: 24px 0 8px; padding: 6px 10px; background: #f3f4f6; border-radius: 6px; text-transform: uppercase; letter-spacing: .03em; page-break-after: avoid; }
+                    .slots { font-weight: normal; color: #6b7280; text-transform: none; }
+                    p.sub { margin: 0 0 8px; color: #555; font-size: 13px; }
+                    table { width: 100%; border-collapse: collapse; }
+                    th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; text-align: left; vertical-align: middle; }
+                    th { background: #0d9488; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                    td.num { width: 40px; text-align: center; }
+                    td.photo { width: 90px; text-align: center; }
+                    td.photo img { width: 72px; height: 72px; object-fit: cover; border-radius: 50%; }
+                    .noimg { width: 72px; height: 72px; line-height: 72px; margin: 0 auto; border-radius: 50%; background: #e5e7eb; color: #6b7280; font-size: 10px; text-align: center; }
+                    tr { page-break-inside: avoid; }
+                </style>
+            </head>
+            <body>
+                <h1>${escapeHtml(election?.title ?? 'Election')} — Candidates</h1>
+                <p class="sub">Generated ${new Date().toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}</p>
+                ${sections}
+                <script>
+                    window.onload = function () { window.print(); };
+                <\/script>
+            </body>
+            </html>`;
 
-            const win = window.open('', '_blank');
-            if (!win) {
-                toast.error('Error', {
-                    description: 'Pop-up blocked. Please allow pop-ups for this site.',
-                    icon: <CircleX className="h-5 w-5 text-red-500" />,
-                    duration: 5000,
-                });
-                return;
-            }
-            win.document.open();
-            win.document.write(html);
-            win.document.close();
-        };
+                const win = window.open('', '_blank');
+                if (!win) {
+                    toast.error('Error', {
+                        description: 'Pop-up blocked. Please allow pop-ups for this site.',
+                        icon: <CircleX className="h-5 w-5 text-red-500" />,
+                        duration: 5000,
+                    });
+                    return;
+                }
+                win.document.open();
+                win.document.write(html);
+                win.document.close();
+            };
 
     return (
         <>

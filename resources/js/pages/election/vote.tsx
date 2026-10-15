@@ -393,7 +393,10 @@ export default function Vote({ require_exact_vote_count, hasVoted }: VoteProps) 
                                         )
                                     ) : (
                                         <p className="text-center text-lg font-medium text-red-500">
-                                            {todayDate < electionStart ? 'Election has not started yet.' : 'Election has ended.'}
+                                            {/* {todayDate < electionStart ? 'Election has not started yet.' : 'Election has ended.'} */}
+                                            {electionStatus === 'Upcoming Election'
+                                                ? 'Election has not started yet.'
+                                                : 'Election has ended.'}
                                         </p>
                                     )
                                 ) : (

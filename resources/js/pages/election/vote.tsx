@@ -165,7 +165,7 @@ export default function Vote({ require_exact_vote_count, hasVoted }: VoteProps) 
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     };
 
-    const VOTING_START = { hour: 13, minute: 00 }; // 1:30 PM
+    const VOTING_START = { hour: 13, minute: 0 }; // 1:30 PM
     const VOTING_END = { hour: 14, minute: 5 };    // 2:05 PM
 
     const setTime = (date: Date, { hour, minute }: { hour: number; minute: number }) => {
